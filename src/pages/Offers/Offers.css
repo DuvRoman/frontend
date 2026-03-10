@@ -1,0 +1,99 @@
+/* --- HERO SECTION --- */
+.hero-offers { text-align: center; padding: 60px 5% 40px; }
+.bot-badge {
+    background: #fff;
+    border: 1px solid #ddd;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.pulse { width: 8px; height: 8px; background: #ff4d4d; border-radius: 50%; animation: shadow-pulse 2s infinite; }
+@keyframes shadow-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); } }
+
+.hero-offers h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+.green-text { color: var(--primary-green); }
+
+/* --- GRID DE OFERTAS (EL CORAZÓN) --- */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 5% 80px;
+}
+
+.offer-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.4s;
+    cursor: pointer;
+    border: 1px solid #f0f0f0;
+}
+.offer-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--primary-green); }
+
+.discount-tag {
+    position: absolute; top: 15px; left: 15px;
+    background: #ff4d4d; color: white;
+    padding: 5px 12px; border-radius: 50px;
+    font-weight: 800; font-size: 0.75rem; z-index: 5;
+}
+
+.offer-image {
+    background: #f1f3f1; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; color: #cbd5cc;
+}
+
+.offer-body { padding: 25px; }
+.cat { font-size: 0.7rem; font-weight: 800; color: var(--primary-green); text-transform: uppercase; letter-spacing: 1px; }
+.offer-body h3 { margin: 10px 0; font-size: 1.2rem; font-weight: 700; }
+
+.prices { margin-bottom: 20px; }
+.old-p { text-decoration: line-through; color: #bbb; margin-right: 10px; font-size: 0.9rem; }
+.new-p { color: var(--dark); font-size: 1.5rem; font-weight: 800; }
+
+.lock-zone {
+    background: #f8f9f8; border: 1px dashed #ccc;
+    padding: 12px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; color: #999; margin-bottom: 15px;
+}
+.blur-txt { filter: blur(5px); font-weight: 700; font-size: 0.8rem; }
+
+.btn-card {
+    width: 100%; padding: 14px; border: none;
+    background: var(--primary-green); color: white;
+    border-radius: 12px; font-weight: 700; cursor: pointer;
+    transition: 0.3s;
+}
+.btn-card:hover { background: var(--dark); }
+
+/* --- MODAL --- */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    z-index: 2000; justify-content: center; align-items: center;
+}
+.modal-content {
+    background: white; padding: 40px; border-radius: 30px;
+    max-width: 400px; text-align: center; width: 90%;
+}
+.modal-icon { font-size: 3.5rem; color: var(--primary-green); margin-bottom: 20px; }
+.modal-content h2 { font-weight: 800; margin-bottom: 15px; }
+.modal-content p { color: #666; margin-bottom: 25px; font-size: 0.95rem; }
+
+.btn-modal-login {
+    width: 100%; padding: 16px; background: var(--primary-green);
+    color: white; border: none; border-radius: 12px;
+    font-weight: 700; cursor: pointer; margin-bottom: 10px;
+}
+.btn-modal-close { background: none; border: none; color: #aaa; cursor: pointer; font-weight: 600; }

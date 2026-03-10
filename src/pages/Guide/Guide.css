@@ -1,0 +1,61 @@
+/* HERO SECTION */
+.hero-guide { text-align: center; padding: 70px 5% 40px; }
+.badge { background: #e8f5e9; color: var(--primary-green); padding: 8px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+.hero-guide h1 { font-size: 3rem; font-weight: 800; margin: 20px 0 10px; }
+.green-text { color: var(--primary-green); }
+
+/* ESTILO PARA TU FRASE FAVORITA */
+.main-desc {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--gray);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* VIDEO CONTAINER */
+.video-section { display: flex; justify-content: center; padding: 0 5% 60px; }
+.video-container {
+    width: 100%; max-width: 850px; aspect-ratio: 16/9;
+    background: #000; border-radius: 30px; overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 6px solid var(--white);
+}
+.placeholder-content {
+    height: 100%; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; color: white;
+    background: linear-gradient(45deg, #121412, var(--primary-green));
+}
+.placeholder-content i { font-size: 5rem; margin-bottom: 15px; opacity: 0.7; }
+
+/* STEPS GRID */
+.steps-container {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 5% 80px;
+}
+.step-card {
+    background: var(--white); padding: 40px; border-radius: 30px;
+    text-align: center; position: relative; transition: 0.3s;
+}
+.step-number {
+    font-weight: 900; color: rgba(45, 125, 70, 0.1);
+    font-size: 4rem; position: absolute; top: 10px; right: 20px;
+}
+.step-icon {
+    width: 80px; height: 80px; background: #f0f7f1; color: var(--primary-green);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 2rem; position: relative; z-index: 2;
+}
+.bot-glow { background: var(--primary-green); color: white; box-shadow: 0 10px 25px rgba(45, 125, 70, 0.3); }
+
+.step-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+.step-card p { color: var(--gray); font-size: 1rem; }
+.step-card.highlight { border: 2px solid var(--primary-green); transform: translateY(-5px); }
+
+/* CTA BOTTOM */
+.cta-bottom { text-align: center; padding: 60px 5% 100px; }
+.btn-go-offers {
+    background: var(--primary-green); color: white; border: none;
+    padding: 18px 45px; border-radius: 50px; font-weight: 800;
+    font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+}
+.btn-go-offers:hover { background: var(--dark); transform: scale(1.05); }
