@@ -49,35 +49,13 @@ export function Home() {
     <section class="search-upload-section">
         <header class="hero-stores">
             <div class="header-text">
-                <span class="badge">ZYNTRA INTELLIGENCE</span>
-                <h1 id="main-title">Busca por <span class="green-text">Tienda</span></h1>
                 
-                <div class="mode-switcher">
-                    <button class="mode-btn active" id="mode-store" onclick="toggleSearchMode('store')">
-                        <i class="fas fa-store"></i> Por Tienda
-                    </button>
-                    <button class="mode-btn" id="mode-product" onclick="toggleSearchMode('product')">
-                        <i class="fas fa-box-open"></i> Por Producto
-                    </button>
-                </div>
                 
-                <p id="mode-desc">
-                    Selecciona un comercio para ver sus precios actuales en Medellín.
-                </p>
-            </div>
+                
+               
 
             <div class="search-container">
-                <div class="search-tabs">
-                    <button class="tab-btn active" onclick="openSearch(event, 'text')">
-                        <i class="fas fa-keyboard"></i> Texto
-                    </button>
-                    <button class="tab-btn" onclick="openSearch(event, 'voice')">
-                        <i class="fas fa-microphone"></i> Voz
-                    </button>
-                    <button class="tab-btn" onclick="openSearch(event, 'photo')">
-                        <i class="fas fa-camera"></i> Foto
-                    </button>
-                </div>
+                <h1 id="main-title">Busca tu <span class="green-text">tienda preferida</span></h1>
 
                 <div class="search-box-wrapper">
                     <div id="text" class="search-mode active" style="display:flex;">
@@ -85,40 +63,6 @@ export function Home() {
                         <button class="btn-go">Buscar</button>
                     </div>
 
-                    <div id="voice" class="search-mode" style="display:none;">
-                        <div class="voice-indicator">
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <span>Escuchando producto...</span>
-                        </div>
-                    </div>
-
-                    <div id="photo" class="search-mode" style="display:none;">
-                        <div class="photo-box" id="photo-box">
-
-                            <!-- UI para subir imagen -->
-                            <div id="upload-ui">
-                                <label for="file-upload" class="upload-label">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <span>Sube foto del producto</span>
-                                </label>
-                                <input id="file-upload" type="file" accept="image/*" hidden />
-                            </div>
-
-                            <!-- UI de cargando -->
-                            <div id="loader-ui" style="display:none;">
-                                <i class="fas fa-circle-notch fa-spin" style="font-size:2rem; color:var(--primary-green)"></i>
-                                <p style="margin-top:10px; font-weight:700; color:var(--primary-green)">Analizando imagen...</p>
-                            </div>
-
-                            <!-- UI resultado -->
-                            <div id="result-ui" style="display:none;">
-                                <img id="photo-preview" style="max-width:120px; border-radius:12px;" />
-                                <p class="success-text">¡IMAGEN ENVIADA!</p>
-                            </div>
-
-                        </div>
                     </div>
 
                 </div>

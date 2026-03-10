@@ -175,3 +175,63 @@ body { background: var(--bg-light); color: var(--dark); overflow-x: hidden; }
     70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 75, 43, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0); }
 }
+
+/* Actualización para el botón con clase .btn-outline */
+
+.btn-outline {
+  position: relative; /* Necesario para posicionar el rayo */
+  overflow: hidden;    /* Para que el rayo no se salga de las curvas */
+  transition: all 0.3s ease;
+  z-index: 1; /* Asegura que el texto quede sobre el rayo */
+  
+  /* Animación de expansión y contracción */
+  animation: pulse-button 2.5s infinite ease-in-out;
+}
+
+/* El Rayo Verde (Shimmer) */
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%; /* Empieza bien a la izquierda */
+  width: 100%;
+  height: 100%;
+  
+  /* Un verde más vibrante para que se note el 'rayo' */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(40, 167, 69, 0.1) 30%, /* Verde suave inicial */
+    rgba(40, 167, 69, 0.6) 50%, /* El núcleo del rayo verde */
+    rgba(40, 167, 69, 0.1) 70%, /* Verde suave final */
+    transparent 100%
+  );
+  
+  transform: skewX(-20deg); /* Inclinación del rayo */
+  animation: green-ray 3s infinite;
+  z-index: -1; /* Pasa por detrás del texto pero dentro del botón */
+}
+
+/* Animación del pulso (Escalado leve) */
+@keyframes pulse-button {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.09); /* Crece un 4% */
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.2); /* Brillo exterior verde tenue */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animación del movimiento del rayo */
+@keyframes green-ray {
+  0% {
+    left: -100%; /* Pasa rápido y luego espera */
+  }
+  100% {
+    left: 100%; /* Pasa rápido y luego espera */
+  }
+}
