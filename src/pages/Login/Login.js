@@ -13,6 +13,7 @@ export function Login (){
                 <span class="small-info">o usa tu correo para registrarte</span>
                 <input type="text" placeholder="Nombre completo" required />
                 <input type="email" placeholder="Correo Electrónico" required />
+                <input type="number" placeholder="Celular" required />
                 <input type="password" placeholder="Contraseña" required />
                 <input type="password" placeholder="Confirmar Contraseña" required />
                 <button class="btn-primary">Registrarse</button>
@@ -39,11 +40,15 @@ export function Login (){
                 <div class="overlay-panel overlay-left">
                     <h1>¡Bienvenido!</h1>
                     <p>Para seguir descubriendo ofertas en Medellín, inicia sesión con tus datos.</p>
+                    <br>
+                    <p>Te mantendremos al tanto de las ofertas y de tus productos favoritos en descuento, por medio de tu numero celular 📲</p>
+                    <br>
                     <button class="btn-outline-white" id="signIn">Ya tengo cuenta</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>¿Nuevo aquí?</h1>
                     <p>Regístrate y empieza a usar nuestro bot Scrapy para encontrar los mejores precios.</p>
+                    <br>
                     <button class="btn-outline-white" id="signUp">Crear cuenta</button>
                 </div>
             </div>

@@ -235,3 +235,13 @@ body { background: var(--bg-light); color: var(--dark); overflow-x: hidden; }
     left: 100%; /* Pasa rápido y luego espera */
   }
 }
+
+.btn-clear {
+  padding: 10px 25px;
+  height: 50px;
+  border-radius: 15px; /* Forma de píldora */
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}

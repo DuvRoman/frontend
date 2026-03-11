@@ -2,12 +2,14 @@ import { Home } from "../pages/Home/Home.js";
 import { Guide } from "../pages/Guide/Guide.js";
 import { Offers } from "../pages/Offers/Offers.js";
 import { Login, loginEvents } from "../pages/Login/Login.js";
+import { Stores } from "../pages/Stores/Stores.js";
 
-const routes = {
+export const routes = {
   "/home": Home,
   "/guide": Guide,
   "/offers": Offers,
-  "/login": Login
+  "/login": Login,
+  "/searchProduct": Stores
 };
 
 // Detectar clicks en links SPA
