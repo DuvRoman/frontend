@@ -128,24 +128,39 @@ export const getQueryFromImage = async (file) => {
     });
 };
 
-// Ejemplo con el botón de BUSCAR
-document.querySelector('.btn-go').onclick = () => {
-    const miTexto = getQueryFromInput(); // Recibes el return
-    console.log("Texto recibido:", miTexto);
-    // Ahora haz lo que quieras con 'miTexto'
-};
+// --- ESCUCHADOR GLOBAL DE CLICKS (Texto y Voz) ---
+document.addEventListener('click', async (event) => {
+    
+    // 1. Caso: Botón de BUSCAR (Texto)
+    if (event.target.matches('.btn-go') || event.target.closest('.btn-go')) {
+        const miTexto = getQueryFromInput(); // Llamamos a tu función de return
+        console.log("📝 Texto recibido del input:", miTexto);
+        // Aquí ejecutas tu lógica con el string...
+    }
 
-// Ejemplo con VOZ (al ser asíncrona usas 'await')
-document.querySelector('.voice-indicator').onclick = async () => {
-    const miVoz = await getQueryFromVoice(); // Esperas el return
-    console.log("Voz convertida a texto:", miVoz);
-};
+    // 2. Caso: Indicador de VOZ
+    if (event.target.matches('.voice-indicator') || event.target.closest('.voice-indicator')) {
+        console.log("🎤 Escuchando...");
+        const miVoz = await getQueryFromVoice(); // Esperamos el return del string
+        console.log("🎙️ Voz convertida a texto:", miVoz);
+        // Aquí ejecutas tu lógica con el string...
+    }
+});
 
-// Ejemplo con FOTO
-document.getElementById('file-upload').onchange = async (e) => {
-    const miFotoTexto = await getQueryFromImage(e.target.files[0]); // Esperas el return
-    console.log("Foto convertida a texto:", miFotoTexto);
-};
+// --- ESCUCHADOR GLOBAL DE CAMBIOS (Foto) ---
+document.addEventListener('change', async (event) => {
+    
+    // 3. Caso: Carga de FOTO
+    if (event.target.id === 'file-upload') {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("📸 Procesando imagen...");
+            const miFotoTexto = await getQueryFromImage(file); // Pasamos el archivo y esperamos el string
+            console.log("🖼️ Foto convertida a texto:", miFotoTexto);
+            // Aquí ejecutas tu lógica con el string...
+        }
+    }
+});
 
 
 
