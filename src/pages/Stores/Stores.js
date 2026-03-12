@@ -1,6 +1,6 @@
 import './Stores.css';
 
-// ─── HELPERS DE UI ────────────────────────────────────────────────────────────
+// HELPERS DE UI 
 
 function openSearch(evt, modeName) {
     document.querySelectorAll('.search-mode').forEach(el => {
@@ -45,7 +45,7 @@ function toggleSearchMode(mode) {
     input.placeholder = isProduct ? 'Busca en TODAS las tiendas...' : '¿Qué buscas en esta tienda?';
 }
 
-// ─── INICIALIZACIÓN DEL COMPONENTE ───────────────────────────────────────────
+//  INICIALIZACIÓN DEL COMPONENTE 
 
 function initStoreEvents(container) {
     const fileInput = container.querySelector('#file-upload');
@@ -103,7 +103,7 @@ function initStoreEvents(container) {
     container.querySelector('#mode-product')?.addEventListener('click', () => toggleSearchMode('product'));
 }
 
-// ─── EXTRACTORES DE QUERY ─────────────────────────────────────────────────────
+// EXTRACTORES DE QUERY 
 
 export const getQueryFromInput = () => {
     const input = document.getElementById('main-input');
@@ -135,7 +135,7 @@ export const getQueryFromImage = async (file) => {
     });
 };
 
-// ─── COMPONENTE PRINCIPAL ─────────────────────────────────────────────────────
+// COMPONENTE PRINCIPAL 
 
 export function Stores() {
     return `
