@@ -106,10 +106,10 @@ export const getQueryFromVoice = () => {
 
         recognition.onresult = (e) => {
             const transcript = e.results[0][0].transcript;
-            resolve(transcript); // <--- AQUÍ RETORNA EL STRING
+            resolve(transcript);
         };
 
-        recognition.onerror = () => resolve(""); 
+        recognition.onerror = () => resolve("");
     });
 };
 
@@ -122,50 +122,45 @@ export const getQueryFromImage = async (file) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             // Aquí iría la respuesta de tu API de Google Vision
-            const aiResult = "Leche Deslactosada"; 
-            resolve(aiResult); // <--- AQUÍ RETORNA EL STRING
+            const aiResult = "Leche Deslactosada";
+            resolve(aiResult);
         }, 1500);
     });
 };
 
 // --- ESCUCHADOR GLOBAL DE CLICKS (Texto y Voz) ---
 document.addEventListener('click', async (event) => {
-    
+
     // 1. Caso: Botón de BUSCAR (Texto)
     if (event.target.matches('.btn-go') || event.target.closest('.btn-go')) {
-        const miTexto = getQueryFromInput(); // Llamamos a tu función de return
-        console.log(" Texto recibido del input:", miTexto);
+        const miTexto = getQueryFromInput();
+        console.log("Texto recibido del input:", miTexto);
         // Aquí ejecutas tu lógica con el string...
     }
 
     // 2. Caso: Indicador de VOZ
     if (event.target.matches('.voice-indicator') || event.target.closest('.voice-indicator')) {
-        console.log(" Escuchando...");
-        const miVoz = await getQueryFromVoice(); // Esperamos el return del string
-        console.log(" Voz convertida a texto:", miVoz);
+        console.log("Escuchando...");
+        const miVoz = await getQueryFromVoice();
+        console.log("Voz convertida a texto:", miVoz);
         // Aquí ejecutas tu lógica con el string...
     }
 });
 
 // --- ESCUCHADOR GLOBAL DE CAMBIOS (Foto) ---
 document.addEventListener('change', async (event) => {
-    
+
     // 3. Caso: Carga de FOTO
     if (event.target.id === 'file-upload') {
         const file = event.target.files[0];
         if (file) {
-            console.log(" Procesando imagen...");
-            const miFotoTexto = await getQueryFromImage(file); // Pasamos el archivo y esperamos el string
-            console.log(" Foto convertida a texto:", miFotoTexto);
+            console.log("Procesando imagen...");
+            const miFotoTexto = await getQueryFromImage(file);
+            console.log("Foto convertida a texto:", miFotoTexto);
             // Aquí ejecutas tu lógica con el string...
         }
     }
 });
-
-
-
-
-
 
 
 export function Stores() {
@@ -175,7 +170,7 @@ export function Stores() {
         <div class="header-text">
             <span class="badge">ZYNTRA INTELLIGENCE</span>
             <h1 id="main-title">Busca por <span class="green-text">Tienda</span></h1>
-            
+
             <div class="mode-switcher">
                 <button class="mode-btn active" id="mode-store" onclick="toggleSearchMode('store')">
                     <i class="fas fa-store"></i> Por Tienda
@@ -184,7 +179,7 @@ export function Stores() {
                     <i class="fas fa-box-open"></i> Por Producto
                 </button>
             </div>
-            
+
             <p id="mode-desc">
                 Selecciona un comercio para ver sus precios actuales en Medellín.
             </p>
@@ -218,28 +213,30 @@ export function Stores() {
                     </div>
                 </div>
 
-    <div id="photo" class="search-mode" style="display:none;">
-    
-    <div class="photo-box" id="photo-box">
-        
-        <div id="upload-ui">
-            <label for="file-upload" class="upload-label">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>Sube foto del producto</span>
-            </label>
-            <input id="file-upload" type="file" accept="image/*" hidden />
-        </div>
+                <div id="photo" class="search-mode" style="display:none;">
+                    <div class="photo-box" id="photo-box">
 
-        <div id="result-ui" style="display:none;">
-            <img id="photo-preview" />
-            <p class="success-text">¡PRODUCTO IDENTIFICADO!</p>
+                        <div id="upload-ui">
+                            <label for="file-upload" class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Sube foto del producto</span>
+                            </label>
+                            <input id="file-upload" type="file" accept="image/*" hidden />
+                        </div>
+
+                        <div id="result-ui" style="display:none;">
+                            <img id="photo-preview" />
+                            <p class="success-text">¡PRODUCTO IDENTIFICADO!</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </header>
-
-
     `;
 }
-
 
 // // =========================================================
 // // 1. LAS 3 FUNCIONES EXTRACTORAS (Retornan un String)

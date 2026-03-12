@@ -1,7 +1,7 @@
 import { Home } from "../pages/Home/Home.js";
 import { Guide } from "../pages/Guide/Guide.js";
 import { Offers } from "../pages/Offers/Offers.js";
-import { Login, loginEvents } from "../pages/Login/Login.js";
+import { Login, loginEvents, record } from "../pages/Login/Login.js";
 import { Stores } from "../pages/Stores/Stores.js";
 
 export const routes = {
@@ -12,7 +12,6 @@ export const routes = {
   "/searchProduct": Stores
 };
 
-// Detectar clicks en links SPA
 document.body.addEventListener("click", (e) => {
   const link = e.target.closest("[data-link]");
   if (link) {
@@ -26,7 +25,6 @@ function navigate(route) {
   router();
 }
 
-// ✅ Exponer globalmente para usar en onclick="navigateTo(...)"
 window.navigateTo = navigate;
 
 export function router() {
@@ -35,8 +33,9 @@ export function router() {
 
   document.getElementById("app").innerHTML = view();
 
-  if (path === "/login" && loginEvents) {
+  if (path === "/login") {
     loginEvents();
+    record(); //  ahora sí se adjunta el listener con preventDefault
   }
 }
 
