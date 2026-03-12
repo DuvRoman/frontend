@@ -134,15 +134,15 @@ document.addEventListener('click', async (event) => {
     // 1. Caso: Botón de BUSCAR (Texto)
     if (event.target.matches('.btn-go') || event.target.closest('.btn-go')) {
         const miTexto = getQueryFromInput(); // Llamamos a tu función de return
-        console.log("📝 Texto recibido del input:", miTexto);
+        console.log(" Texto recibido del input:", miTexto);
         // Aquí ejecutas tu lógica con el string...
     }
 
     // 2. Caso: Indicador de VOZ
     if (event.target.matches('.voice-indicator') || event.target.closest('.voice-indicator')) {
-        console.log("🎤 Escuchando...");
+        console.log(" Escuchando...");
         const miVoz = await getQueryFromVoice(); // Esperamos el return del string
-        console.log("🎙️ Voz convertida a texto:", miVoz);
+        console.log(" Voz convertida a texto:", miVoz);
         // Aquí ejecutas tu lógica con el string...
     }
 });
@@ -154,9 +154,9 @@ document.addEventListener('change', async (event) => {
     if (event.target.id === 'file-upload') {
         const file = event.target.files[0];
         if (file) {
-            console.log("📸 Procesando imagen...");
+            console.log(" Procesando imagen...");
             const miFotoTexto = await getQueryFromImage(file); // Pasamos el archivo y esperamos el string
-            console.log("🖼️ Foto convertida a texto:", miFotoTexto);
+            console.log(" Foto convertida a texto:", miFotoTexto);
             // Aquí ejecutas tu lógica con el string...
         }
     }

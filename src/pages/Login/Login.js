@@ -11,11 +11,11 @@ export function Login (){
                     <a href="#" class="social"><i class="fab fa-google"></i></a>
                 </div>
                 <span class="small-info">o usa tu correo para registrarte</span>
-                <input type="text" placeholder="Nombre completo" required />
-                <input type="email" placeholder="Correo Electrónico" required />
-                <input type="number" placeholder="Celular" required />
-                <input type="password" placeholder="Contraseña" required />
-                <input type="password" placeholder="Confirmar Contraseña" required />
+                <input id="name" type="text" placeholder="Nombre completo" required />
+                <input id="email" type="email" placeholder="Correo Electrónico" required />
+                <input id="number" type="number" placeholder="Celular" required />
+                <input id="password" type="password" placeholder="Contraseña" required />
+                <input id= "confirmPassword" type="password" placeholder="Confirmar Contraseña" required />
                 <button class="btn-primary">Registrarse</button>
             </form>
         </div>
@@ -71,4 +71,13 @@ export function loginEvents() {
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
     });
+}
+
+function record (){
+    const name = document.getElementById("name")
+    const email = document.getElementById("email") 
+    const password = document.getElementById("password")
+    const confirmPassword = document.getElementById("ConfirmPassword")
+    const number = document.getElementById("number")
+
 }
