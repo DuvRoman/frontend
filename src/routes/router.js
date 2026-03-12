@@ -2,8 +2,8 @@ import { Home } from "../pages/Home/Home.js";
 import { Guide } from "../pages/Guide/Guide.js";
 import { Offers } from "../pages/Offers/Offers.js";
 import { Login, loginEvents, record } from "../pages/Login/Login.js";
-import { Stores } from "../pages/Stores/Stores.js";
-
+import { Stores, initStores } from "../pages/Stores/Stores.js";
+ 
 export const routes = {
   "/home": Home,
   "/guide": Guide,
@@ -11,7 +11,7 @@ export const routes = {
   "/login": Login,
   "/searchProduct": Stores
 };
-
+ 
 document.body.addEventListener("click", (e) => {
   const link = e.target.closest("[data-link]");
   if (link) {
@@ -19,25 +19,29 @@ document.body.addEventListener("click", (e) => {
     navigate(link.getAttribute("href"));
   }
 });
-
+ 
 function navigate(route) {
   window.history.pushState({}, "", route);
   router();
 }
-
+ 
 window.navigateTo = navigate;
-
+ 
 export function router() {
   const path = window.location.pathname;
   const view = routes[path] || routes["/home"];
-
+ 
   document.getElementById("app").innerHTML = view();
-
+ 
   if (path === "/login") {
     loginEvents();
-    record(); //  ahora sí se adjunta el listener con preventDefault
+    record();
+  }
+ 
+  if (path === "/searchProduct") {
+    initStores();
   }
 }
-
+ 
 window.addEventListener("popstate", router);
 router();

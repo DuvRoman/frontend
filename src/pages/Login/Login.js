@@ -130,21 +130,34 @@ export function record() {
     number.addEventListener("input",   (e) => { user.number   = e.target.value; });
 
     // Escuchar el submit del form (no el click del botón)
-    form.addEventListener("submit", (e) => {
-        e.preventDefault(); //  evita el refresco de página
+   form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-        // Validar contraseñas
         if (password.value !== confirmPassword.value) {
             alert("Las contraseñas no coinciden.");
             return;
         }
 
-        // Validar campos vacíos
         if (!user.name || !user.email || !user.password || !user.number) {
             alert("Por favor completa todos los campos.");
             return;
         }
 
-        console.log(" Usuario registrado:", user);
-    });
-}
+        try {
+            const response = await fetch("http://localhost:3000/register", {
+                method : "POST",
+                headers: { "Content-Type": "application/json" },
+                body   : JSON.stringify(user)
+            });
+
+            const data = await response.json();
+            console.log(data.message);
+
+            form.reset();
+            user = { name: "", email: "", password: "", number: "" };
+
+        } catch (error) {
+            console.error("Error al enviar:", error);
+        }
+    })
+};

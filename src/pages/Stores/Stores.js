@@ -1,199 +1,172 @@
 import './Stores.css';
 
+// ─── HELPERS DE UI ────────────────────────────────────────────────────────────
 
-// FUNCIONES GLOBALES (para onclick)
+function openSearch(evt, modeName) {
+    document.querySelectorAll('.search-mode').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+    });
 
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 
-window.openSearch = function (evt, modeName) {
-    const tabcontent = document.getElementsByClassName("search-mode");
-    const tablinks = document.getElementsByClassName("tab-btn");
-
-    // Ocultar todos los modos
-    for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
-    }
-
-    // Quitar active a los botones
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    // Mostrar modo seleccionado
     const selected = document.getElementById(modeName);
     if (selected) {
-        selected.style.display = "flex";
-        selected.classList.add("active");
+        selected.style.display = 'flex';
+        selected.classList.add('active');
     }
 
-    evt.currentTarget.classList.add("active");
-};
+    evt.currentTarget.classList.add('active');
+}
 
-
-window.toggleSearchMode = function (mode) {
-    const title = document.getElementById('main-title');
-    const desc = document.getElementById('mode-desc');
-    const storeBtn = document.getElementById('mode-store');
+function toggleSearchMode(mode) {
+    const title     = document.getElementById('main-title');
+    const desc      = document.getElementById('mode-desc');
+    const storeBtn  = document.getElementById('mode-store');
     const productBtn = document.getElementById('mode-product');
     const storeGrid = document.getElementById('store-section');
-    const input = document.getElementById('main-input');
+    const input     = document.getElementById('main-input');
 
     if (!title || !desc || !storeBtn || !productBtn || !storeGrid || !input) return;
 
-    if (mode === 'product') {
-        title.innerHTML = 'Busca por <span class="green-text">Producto</span>';
-        desc.innerText = "Busca un artículo y compararemos el precio en todos los supermercados.";
-        productBtn.classList.add('active');
-        storeBtn.classList.remove('active');
-        storeGrid.classList.add('mode-product-active');
-        input.placeholder = "Busca en TODAS las tiendas...";
-    } else {
-        title.innerHTML = 'Busca por <span class="green-text">Tienda</span>';
-        desc.innerText = "Selecciona un comercio para ver sus precios actuales.";
-        storeBtn.classList.add('active');
-        productBtn.classList.remove('active');
-        storeGrid.classList.remove('mode-product-active');
-        input.placeholder = "¿Qué buscas en esta tienda?";
-    }
-};
+    const isProduct = mode === 'product';
 
-function initStoreEvents() {
-    const fileInput = document.getElementById("file-upload");
-    const preview = document.getElementById("photo-preview");
-    const uploadUI = document.getElementById("upload-ui");
-    const resultUI = document.getElementById("result-ui");
+    title.innerHTML = isProduct
+        ? 'Busca por <span class="green-text">Producto</span>'
+        : 'Busca por <span class="green-text">Tienda</span>';
+
+    desc.innerText = isProduct
+        ? 'Busca un artículo y compararemos el precio en todos los supermercados.'
+        : 'Selecciona un comercio para ver sus precios actuales.';
+
+    productBtn.classList.toggle('active', isProduct);
+    storeBtn.classList.toggle('active', !isProduct);
+    storeGrid.classList.toggle('mode-product-active', isProduct);
+    input.placeholder = isProduct ? 'Busca en TODAS las tiendas...' : '¿Qué buscas en esta tienda?';
+}
+
+// ─── INICIALIZACIÓN DEL COMPONENTE ───────────────────────────────────────────
+
+function initStoreEvents(container) {
+    const fileInput = container.querySelector('#file-upload');
+    const preview   = container.querySelector('#photo-preview');
+    const uploadUI  = container.querySelector('#upload-ui');
+    const resultUI  = container.querySelector('#result-ui');
 
     if (!fileInput || !preview || !uploadUI || !resultUI) return;
 
-    fileInput.addEventListener("change", function (event) {
+    fileInput.addEventListener('change', (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         const reader = new FileReader();
-
-        reader.onload = function (e) {
-            uploadUI.style.display = "none";
-            resultUI.style.display = "flex";
-
+        reader.onload = (e) => {
+            uploadUI.style.display = 'none';
+            resultUI.style.display = 'flex';
             preview.src = e.target.result;
         };
-
         reader.readAsDataURL(file);
     });
+
+    // Botón buscar (texto)
+    container.querySelector('.btn-go')?.addEventListener('click', () => {
+        const texto = getQueryFromInput();
+        console.log('Texto recibido del input:', texto);
+        // Aquí ejecutas tu lógica con el string...
+    });
+
+    // Indicador de voz
+    container.querySelector('.voice-indicator')?.addEventListener('click', async () => {
+        console.log('Escuchando...');
+        const voz = await getQueryFromVoice();
+        console.log('Voz convertida a texto:', voz);
+        // Aquí ejecutas tu lógica con el string...
+    });
+
+    // Carga de foto
+    fileInput.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        console.log('Procesando imagen...');
+        const textoFoto = await getQueryFromImage(file);
+        console.log('Foto convertida a texto:', textoFoto);
+        // Aquí ejecutas tu lógica con el string...
+    });
+
+    // Tabs de búsqueda
+    container.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => openSearch(e, btn.dataset.tab));
+    });
+
+    // Modo tienda / producto
+    container.querySelector('#mode-store')?.addEventListener('click', () => toggleSearchMode('store'));
+    container.querySelector('#mode-product')?.addEventListener('click', () => toggleSearchMode('product'));
 }
 
+// ─── EXTRACTORES DE QUERY ─────────────────────────────────────────────────────
 
-// 1. EXTRAER DE TEXTO (Síncrona)
-// Retorna lo que haya en el input en ese momento.
 export const getQueryFromInput = () => {
     const input = document.getElementById('main-input');
-    return input ? input.value.trim() : "";
+    return input ? input.value.trim() : '';
 };
 
-// 2. EXTRAER DE VOZ (Asíncrona)
-// Retorna una Promesa que se resuelve con el texto hablado.
 export const getQueryFromVoice = () => {
     return new Promise((resolve) => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
-            console.warn("Navegador no compatible con voz.");
-            return resolve("");
+            console.warn('Navegador no compatible con voz.');
+            return resolve('');
         }
 
         const recognition = new SpeechRecognition();
         recognition.lang = 'es-CO';
         recognition.start();
-
-        recognition.onresult = (e) => {
-            const transcript = e.results[0][0].transcript;
-            resolve(transcript);
-        };
-
-        recognition.onerror = () => resolve("");
+        recognition.onresult = (e) => resolve(e.results[0][0].transcript);
+        recognition.onerror  = () => resolve('');
     });
 };
 
-// 3. EXTRAER DE FOTO (Asíncrona)
-// Recibe el objeto 'file' del input y retorna el texto identificado.
 export const getQueryFromImage = async (file) => {
-    if (!file) return "";
+    if (!file) return '';
 
-    // Simulación de procesamiento de IA (OCR/Vision)
+    // TODO: reemplazar con llamada real a Google Vision API
     return new Promise((resolve) => {
-        setTimeout(() => {
-            // Aquí iría la respuesta de tu API de Google Vision
-            const aiResult = "Leche Deslactosada";
-            resolve(aiResult);
-        }, 1500);
+        setTimeout(() => resolve('Leche Deslactosada'), 1500);
     });
 };
 
-// --- ESCUCHADOR GLOBAL DE CLICKS (Texto y Voz) ---
-document.addEventListener('click', async (event) => {
-
-    // 1. Caso: Botón de BUSCAR (Texto)
-    if (event.target.matches('.btn-go') || event.target.closest('.btn-go')) {
-        const miTexto = getQueryFromInput();
-        console.log("Texto recibido del input:", miTexto);
-        // Aquí ejecutas tu lógica con el string...
-    }
-
-    // 2. Caso: Indicador de VOZ
-    if (event.target.matches('.voice-indicator') || event.target.closest('.voice-indicator')) {
-        console.log("Escuchando...");
-        const miVoz = await getQueryFromVoice();
-        console.log("Voz convertida a texto:", miVoz);
-        // Aquí ejecutas tu lógica con el string...
-    }
-});
-
-// --- ESCUCHADOR GLOBAL DE CAMBIOS (Foto) ---
-document.addEventListener('change', async (event) => {
-
-    // 3. Caso: Carga de FOTO
-    if (event.target.id === 'file-upload') {
-        const file = event.target.files[0];
-        if (file) {
-            console.log("Procesando imagen...");
-            const miFotoTexto = await getQueryFromImage(file);
-            console.log("Foto convertida a texto:", miFotoTexto);
-            // Aquí ejecutas tu lógica con el string...
-        }
-    }
-});
-
+// ─── COMPONENTE PRINCIPAL ─────────────────────────────────────────────────────
 
 export function Stores() {
-    setTimeout(initStoreEvents, 0);
     return `
     <header class="hero-stores">
         <div class="header-text">
             <span class="badge">ZYNTRA INTELLIGENCE</span>
-            <h1 id="main-title">Busca por <span class="green-text">Tienda</span></h1>
+            <h1 class="hero-title" id="main-title">
+                Busca por <span class="green-text">Tienda</span>
+            </h1>
 
             <div class="mode-switcher">
-                <button class="mode-btn active" id="mode-store" onclick="toggleSearchMode('store')">
+                <button class="mode-btn active" id="mode-store">
                     <i class="fas fa-store"></i> Por Tienda
                 </button>
-                <button class="mode-btn" id="mode-product" onclick="toggleSearchMode('product')">
+                <button class="mode-btn" id="mode-product">
                     <i class="fas fa-box-open"></i> Por Producto
                 </button>
             </div>
 
-            <p id="mode-desc">
-                Selecciona un comercio para ver sus precios actuales en Medellín.
-            </p>
+            <p id="mode-desc">Selecciona un comercio para ver sus precios actuales en Medellín.</p>
         </div>
 
         <div class="search-container">
             <div class="search-tabs">
-                <button class="tab-btn active" onclick="openSearch(event, 'text')">
+                <button class="tab-btn active" data-tab="text">
                     <i class="fas fa-keyboard"></i> Texto
                 </button>
-                <button class="tab-btn" onclick="openSearch(event, 'voice')">
+                <button class="tab-btn" data-tab="voice">
                     <i class="fas fa-microphone"></i> Voz
                 </button>
-                <button class="tab-btn" onclick="openSearch(event, 'photo')">
+                <button class="tab-btn" data-tab="photo">
                     <i class="fas fa-camera"></i> Foto
                 </button>
             </div>
@@ -215,7 +188,6 @@ export function Stores() {
 
                 <div id="photo" class="search-mode" style="display:none;">
                     <div class="photo-box" id="photo-box">
-
                         <div id="upload-ui">
                             <label for="file-upload" class="upload-label">
                                 <i class="fas fa-cloud-upload-alt"></i>
@@ -225,19 +197,22 @@ export function Stores() {
                         </div>
 
                         <div id="result-ui" style="display:none;">
-                            <img id="photo-preview" />
+                            <img id="photo-preview" alt="Vista previa del producto" />
                             <p class="success-text">¡PRODUCTO IDENTIFICADO!</p>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
     `;
 }
 
+// Se llama desde el router DESPUÉS de hacer innerHTML = Stores()
+export function initStores() {
+    const container = document.getElementById('app');
+    initStoreEvents(container);
+}
 // // =========================================================
 // // 1. LAS 3 FUNCIONES EXTRACTORAS (Retornan un String)
 // // =========================================================
