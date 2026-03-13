@@ -156,8 +156,8 @@ body { background: var(--bg-light); color: var(--dark); overflow-x: hidden; }
 .search-btn { background: var(--dark); color: white; border: none; width: 55px; height: 55px; border-radius: 18px; cursor: pointer; }
 
 /* STORES SECTION */
-.stores-section { padding: 80px 8%; }
-.grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+.stores-section { padding: 80px 8%; width: 100%; }
+.grid-container { display: grid; grid-template-columns: repeat(3,1fr); gap: 25px; }
 .store-card { background: white; padding: 40px 20px; border-radius: 30px; text-align: center; border: 1px solid #f0f0f0; transition: 0.3s; }
 .store-card:hover { transform: translateY(-8px); border-color: var(--primary-green); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
 .store-card h3 { font-weight: 800; font-size: 1.3rem; margin-bottom: 5px; }

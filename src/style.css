@@ -1,3 +1,6 @@
+@import url(./pages/Home/Home.css);
+@import url(./pages/Stores/Stores.css);
+
 :root {
     --primary-green: #2D7D46;
     --dark: #121412;

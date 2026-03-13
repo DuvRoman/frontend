@@ -312,3 +312,6 @@ h1 { font-size: 3rem; font-weight: 800; margin: 20px 0 10px; }
     border: none;
     background: transparent;
 }
+#main-title{
+    margin: 10px;
+}

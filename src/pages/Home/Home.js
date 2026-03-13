@@ -54,7 +54,7 @@ export function Home() {
 
                 <div class="search-box-wrapper">
                     <div id="text" class="search-mode active" style="display:flex;">
-                    <input type="text" id="main-input" placeholder="¿Qué buscas en esta tienda?">
+                    <input type="text" id="main-input" placeholder="¿Qué tienda buscas?">
                     <button class="btn-go" id="btn-search">Buscar</button>
                     <button class="btn-clear" id="btn-clear" style="margin-left: 10px;">Limpiar</button>
                 </div>      

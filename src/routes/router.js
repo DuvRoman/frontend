@@ -29,13 +29,20 @@ window.navigateTo = navigate;
 
 export function router() {
   const path = window.location.pathname;
-  const view = routes[path] || routes["/home"];
+  
+  const isAuthenticated = localStorage.getItem("userActive") === "true";
 
+  if (path === "/offers" && !isAuthenticated) {
+    window.navigateTo("/login"); 
+    return;
+  }
+
+  const view = routes[path] || routes["/home"];
   document.getElementById("app").innerHTML = view();
 
   if (path === "/login") {
     loginEvents();
-    record(); //  ahora sí se adjunta el listener con preventDefault
+    record();
   }
 }
 
