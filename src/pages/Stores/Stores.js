@@ -19,7 +19,7 @@ export function Stores() {
                 </button>
             </div>
 
-            <p id="mode-desc">Selecciona un comercio para ver sus precios actuales en Medellín.</p>
+            <p id="mode-desc">Selecciona un producto en especifico para ver sus precios actuales en Medellín.</p>
         </div>
 
         <div class="search-container">
